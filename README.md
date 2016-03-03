@@ -1,2 +1,1 @@
-# crypy
-Library which contains implementation of the most popular crypto algorithms.
+# crypy: library which contains implementation of the most popular crypto algorithms.
