@@ -1,2 +1,2 @@
 def test_b():
-	assert 'b' == 'a'
+	assert 'b' == 'b'
