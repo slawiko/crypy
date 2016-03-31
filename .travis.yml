@@ -6,6 +6,6 @@ python:
 install: 
   "pip install -r requirements.txt"
 script: 
-  nosetests -s -v --with-coverage crypy
+  nosetests -s -v --with-coverage --cover-package crypy
 after_success:
   coveralls
