@@ -90,6 +90,7 @@ nosetests.xml
 coverage.xml
 *,cover
 .hypothesis/
+man
 
 # Translations
 *.mo
