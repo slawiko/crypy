@@ -6,6 +6,6 @@ python:
 install: 
   "pip install -r requirements.txt"
 script: 
-  coverage run --source=crypy test.py test
+  coverage run --source=crypy tests/test.py test
 after_success:
   coveralls
