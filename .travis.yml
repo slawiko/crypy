@@ -1,5 +1,11 @@
-language: python
+language:
+  python
 python:
+  - "3.4"
   - "3.5"
-install: "pip install -r requirements.txt"
-script: nosetests -v
+install: 
+  "pip install -r requirements.txt"
+script: 
+  coverage run --source=crypy test.py test
+after_success:
+  coveralls
