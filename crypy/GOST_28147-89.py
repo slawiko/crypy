@@ -11,14 +11,7 @@ D_ParamSet = [[0xF, 0xC, 0x2, 0xA, 0x6, 0x4, 0x5, 0x0, 0x7, 0x9, 0xE, 0xD, 0x1, 
               [0x3, 0x0, 0x6, 0xF, 0x1, 0xE, 0x9, 0x2, 0xD, 0x8, 0xC, 0x4, 0xB, 0xA, 0x5, 0x7],
               [0x1, 0xA, 0x6, 0x8, 0xF, 0xB, 0x0, 0x4, 0xC, 0x3, 0x5, 0x9, 0x7, 0xD, 0x2, 0xE]]
 
-int_key = int(key, 16)
-int_open_text = int(open_text, 16)
-
-bin_key = bin(int_key)[2:].zfill(256)
-bin_open_text = bin(int_open_text)[2:].zfill(64)
-
-A = [bin_open_text[32:]]
-B = [bin_open_text[:32]]
+bin_open_text = bin(int(open_text, 16))[2:].zfill(64)
 
 
 class GOST_28147_89:
@@ -38,7 +31,9 @@ class GOST_28147_89:
 		return list
 
 	def f(self, A, K):
-		X = bin(int(A, 2) ^ int(K, 2))[2:].zfill(32)
+		X = bin(int(A, 2) + int(K, 2))[2:].zfill(32)
+		if X.__len__() > 32:
+			X = X[1:33]
 		list = []
 		counter = 0
 		result = ''
@@ -67,24 +62,3 @@ class GOST_28147_89:
 	@staticmethod
 	def bin_to_hex(bin):
 		return hex(int(bin, 2))
-
-
-# tests
-def test():
-	GOST = GOST_28147_89(D_ParamSet, key)
-	bin_cipher_text = GOST.encode(bin_open_text)
-
-	print(GOST_28147_89.bin_to_hex(bin_cipher_text))
-	new_bin_cipher_text = '0111010111000100000111110000000000100000100110111111011110101011'
-	print(GOST_28147_89.bin_to_hex(new_bin_cipher_text))
-	new_open_text = GOST.decode(new_bin_cipher_text)
-	print(GOST_28147_89.bin_to_hex(new_open_text))
-	print(GOST_28147_89.bin_to_hex(
-		'0100111101100110111011101111100110111110110111010110110001001001100111011111111011111111110001010100110011111110110100001111010011110001000010100111001011110011001101011001011011011100110000010010011101101001101010111010111100111101001100010110111010100100'))
-	new_bin_key = '0100111101100110111011101111100110111110110111010110110001001001100111011111111011111111110001010100110011111110110100001111010011110001000010100111001011110011001101011001011011011100110000010010011101101001101010111010111100111101001100010110111010100100'
-	GOST2 = GOST_28147_89(D_ParamSet, new_bin_key)
-	bin_cipher_text = GOST.encode(new_open_text)
-	print(GOST.bin_to_hex(bin_cipher_text))
-
-
-test()
