@@ -11,10 +11,10 @@ class SubstitutionCipher:
 			self.alphabet = alphabet
 			self.key = key
 
-	def encrypt(self, plain_text):
-		if plain_text is not None:
+	def encrypt(self, open_text):
+		if open_text is not None:
 			cipher_text = ''
-			for char in plain_text:
+			for char in open_text:
 				try:
 					index = self.alphabet.index(char)
 					cipher_text += self.key[index]
@@ -38,6 +38,3 @@ class SubstitutionCipher:
 			return plain_text
 		else:
 			return None
-
-cp = SubstitutionCipher(alphabet='АБВГДЕ ЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ', key='ЛКВЪФЯЕЩШИАЫЗМГД НУЬХЭЖТРОЁЧПЙБЮЦС')
-print(cp.decrypt('КЭФЯХЯЕДЛЕФ ЬЗЯЕФЭГЛХБ'))
